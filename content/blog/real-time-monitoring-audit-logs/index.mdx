@@ -1,0 +1,469 @@
+---
+title: 'Real-Time Monitoring of Audit Logs: Detecting Threats as They Happen'
+subtitle: 'Turning audit logs into active security tools with real-time monitoring'
+description: 'Learn how to implement real-time monitoring and alerting on audit logs to detect security threats, anomalies, and compliance violations as they occur.'
+date: '2025-02-25'
+updatedAt: '2025-03-05'
+author: 'Mark Rosenberg'
+authorUrl: 'https://hyrelog.com/about'
+categories: ['Security', 'Monitoring', 'Audit Trails']
+tags: ['monitoring', 'security', 'alerting', 'threat detection', 'real-time', 'audit logs']
+slug: 'real-time-monitoring-audit-logs'
+canonicalUrl: 'https://hyrelog.com/blog/real-time-monitoring-audit-logs'
+ogImage: '/og/blog-real-time-monitoring-audit-logs.png'
+ogImageAlt: 'Real-time monitoring dashboard with security alerts and audit log events'
+readingTimeMinutes: 12
+draft: false
+---
+
+# Real-Time Monitoring of Audit Logs: Detecting Threats as They Happen
+
+Audit logs are valuable for compliance and post-incident investigation, but their real power comes from real-time monitoring. By analysing audit logs as events occur, you can detect security threats, anomalies, and compliance violations immediately—before they cause significant damage. Let's explore how to implement effective real-time monitoring of audit logs.
+
+## Why Real-Time Monitoring Matters
+
+### Early Detection
+
+Real-time monitoring enables early detection of threats:
+
+-   **Immediate Response**: Detect incidents as they happen, not days later
+-   **Reduced Impact**: Contain threats before they spread
+-   **Preventive Action**: Stop attacks in progress
+-   **Faster Recovery**: Shorter incident duration means faster recovery
+
+### Compliance Benefits
+
+Many compliance frameworks require monitoring:
+
+-   **SOC 2**: Requires continuous monitoring of security events
+-   **ISO 27001**: Mandates monitoring and detection capabilities
+-   **PCI DSS**: Requires real-time monitoring of access to cardholder data
+-   **HIPAA**: Requires monitoring of access to protected health information
+
+### Operational Visibility
+
+Real-time monitoring provides operational insights:
+
+-   **System Health**: Understand how your system is being used
+-   **Performance Issues**: Detect performance anomalies
+-   **User Behavior**: Understand normal vs. abnormal patterns
+-   **Capacity Planning**: Identify trends and plan for growth
+
+## What to Monitor
+
+Not all audit events need real-time monitoring. Focus on security-significant events:
+
+### Authentication Events
+
+Monitor authentication attempts:
+
+-   **Failed Logins**: Multiple failed attempts might indicate brute force attacks
+-   **Successful Logins**: Unusual login times or locations
+-   **Account Lockouts**: Might indicate attack attempts
+-   **Password Changes**: Unauthorised password changes
+-   **Multi-Factor Authentication**: MFA bypass attempts or failures
+
+### Authorisation Events
+
+Monitor access control:
+
+-   **Permission Denials**: Repeated denials might indicate attack attempts
+-   **Privilege Escalations**: Unauthorised privilege changes
+-   **Role Changes**: Unexpected role modifications
+-   **Access Grants**: Unusual access grants
+
+### Data Access Events
+
+Monitor access to sensitive data:
+
+-   **Bulk Data Access**: Accessing many records quickly
+-   **Unusual Access Patterns**: Accessing data outside normal hours or patterns
+-   **Data Exports**: Large or unusual data exports
+-   **Sensitive Data Access**: Access to PII, financial data, health records
+
+### Administrative Actions
+
+Monitor administrative activities:
+
+-   **Configuration Changes**: System configuration modifications
+-   **User Management**: User creation, modification, deletion
+-   **Security Settings**: Changes to security controls
+-   **Integration Changes**: API key creation, webhook configuration
+
+### Security Events
+
+Monitor security-relevant events:
+
+-   **Suspicious Patterns**: Unusual sequences of events
+-   **Anomalies**: Events that deviate from normal patterns
+-   **Policy Violations**: Actions that violate security policies
+-   **Compliance Violations**: Actions that violate compliance requirements
+
+## Monitoring Patterns
+
+Different types of threats require different monitoring patterns:
+
+### Threshold-Based Monitoring
+
+Alert when a metric exceeds a threshold:
+
+```typescript
+// Alert on multiple failed logins
+if (failedLoginAttempts(userId, lastHour) > 5) {
+    alert('Possible brute force attack', {
+        userId,
+        attempts: failedLoginAttempts(userId, lastHour),
+        timeframe: '1 hour'
+    });
+}
+
+// Alert on bulk data access
+if (recordsAccessed(userId, lastMinute) > 1000) {
+    alert('Unusual bulk data access', {
+        userId,
+        records: recordsAccessed(userId, lastMinute),
+        timeframe: '1 minute'
+    });
+}
+```
+
+### Pattern-Based Monitoring
+
+Detect specific patterns of events:
+
+```typescript
+// Detect privilege escalation pattern
+const pattern = [
+    { action: 'login', success: true },
+    { action: 'access', resource: 'admin_panel', success: false },
+    { action: 'request_privilege', success: true },
+    { action: 'access', resource: 'admin_panel', success: true }
+];
+
+if (detectPattern(userId, pattern, lastHour)) {
+    alert('Possible privilege escalation', { userId, pattern });
+}
+```
+
+### Anomaly Detection
+
+Detect deviations from normal behavior:
+
+```typescript
+// Detect unusual access times
+const userNormalHours = getUserNormalHours(userId);
+const currentHour = new Date().getHours();
+
+if (!isWithinNormalHours(currentHour, userNormalHours)) {
+    alert('Unusual access time', {
+        userId,
+        currentHour,
+        normalHours: userNormalHours
+    });
+}
+
+// Detect unusual data access volumes
+const normalVolume = getUserNormalDataAccessVolume(userId);
+const currentVolume = dataAccessVolume(userId, lastHour);
+
+if (currentVolume > normalVolume * 3) {
+    alert('Unusual data access volume', {
+        userId,
+        currentVolume,
+        normalVolume
+    });
+}
+```
+
+### Correlation-Based Monitoring
+
+Correlate events across time or systems:
+
+```typescript
+// Detect coordinated attack
+const failedLogins = getFailedLogins(lastHour);
+const uniqueIPs = new Set(failedLogins.map((e) => e.ip_address));
+
+if (uniqueIPs.size > 10 && failedLogins.length > 50) {
+    alert('Possible distributed brute force attack', {
+        uniqueIPs: uniqueIPs.size,
+        totalAttempts: failedLogins.length
+    });
+}
+```
+
+## Implementation Approaches
+
+### Approach 1: Stream Processing
+
+Process events as they're ingested:
+
+```typescript
+// Event stream processor
+eventStream.subscribe(async (event) => {
+    // Check thresholds
+    await checkThresholds(event);
+
+    // Detect patterns
+    await detectPatterns(event);
+
+    // Detect anomalies
+    await detectAnomalies(event);
+
+    // Correlate events
+    await correlateEvents(event);
+});
+```
+
+**Pros**: Real-time, low latency
+**Cons**: Requires stream processing infrastructure
+
+### Approach 2: Scheduled Queries
+
+Periodically query recent events:
+
+```typescript
+// Run every minute
+setInterval(async () => {
+    const recentEvents = await auditLog.query({
+        start_time: minutesAgo(5),
+        end_time: new Date()
+    });
+
+    // Analyse events
+    await analyseEvents(recentEvents);
+}, 60000);
+```
+
+**Pros**: Simple, works with any storage system
+**Cons**: Not truly real-time, might miss rapid events
+
+### Approach 3: Database Triggers
+
+Use database triggers to detect events:
+
+```sql
+CREATE TRIGGER audit_event_trigger
+AFTER INSERT ON audit_events
+FOR EACH ROW
+BEGIN
+  -- Check for suspicious patterns
+  CALL check_suspicious_pattern(NEW);
+END;
+```
+
+**Pros**: Automatic, no application code needed
+**Cons**: Limited to database capabilities, harder to maintain
+
+### Approach 4: Dedicated Monitoring Service
+
+Use a dedicated monitoring service:
+
+```typescript
+// Send events to monitoring service
+await monitoringService.ingest(event);
+
+// Service handles all monitoring logic
+// Returns alerts if thresholds exceeded
+```
+
+**Pros**: Separation of concerns, scalable
+**Cons**: Additional service to manage
+
+## Building Monitoring Rules
+
+### Rule 1: Failed Authentication Attempts
+
+```typescript
+const rule = {
+    name: 'Multiple Failed Logins',
+    condition: (events) => {
+        const failedLogins = events.filter(
+            (e) => e.action === 'login' && e.success === false
+        );
+        return failedLogins.length > 5;
+    },
+    window: '1 hour',
+    alert: {
+        severity: 'high',
+        message: 'Multiple failed login attempts detected'
+    }
+};
+```
+
+### Rule 2: Unusual Data Access
+
+```typescript
+const rule = {
+    name: 'Unusual Data Access Volume',
+    condition: (events) => {
+        const dataAccess = events.filter(
+            (e) => e.action === 'read' && e.resource.type === 'customer'
+        );
+        return dataAccess.length > 1000;
+    },
+    window: '1 minute',
+    alert: {
+        severity: 'medium',
+        message: 'Unusual bulk data access detected'
+    }
+};
+```
+
+### Rule 3: Privilege Escalation
+
+```typescript
+const rule = {
+    name: 'Privilege Escalation',
+    condition: (events) => {
+        const privilegeChanges = events.filter(
+            (e) => e.action === 'grant_permission' || e.action === 'change_role'
+        );
+        return privilegeChanges.length > 0;
+    },
+    window: '1 hour',
+    alert: {
+        severity: 'high',
+        message: 'Privilege escalation detected'
+    }
+};
+```
+
+## Alerting Strategies
+
+### Severity Levels
+
+Define severity levels for different types of alerts:
+
+-   **Critical**: Immediate threat requiring immediate response
+-   **High**: Significant security concern requiring prompt attention
+-   **Medium**: Security concern requiring investigation
+-   **Low**: Informational, may indicate issues
+
+### Alert Channels
+
+Use multiple alert channels:
+
+-   **Email**: For important but not urgent alerts
+-   **SMS/Pager**: For critical alerts requiring immediate attention
+-   **Slack/Teams**: For team notifications
+-   **Dashboard**: For visibility and tracking
+-   **SIEM Integration**: For integration with security tools
+
+### Alert Fatigue
+
+Prevent alert fatigue:
+
+-   **Tune Thresholds**: Set thresholds appropriately to avoid false positives
+-   **Group Alerts**: Group related alerts together
+-   **Suppress Duplicates**: Don't alert on the same issue repeatedly
+-   **Escalation**: Escalate only if alerts aren't acknowledged
+
+## Performance Considerations
+
+Real-time monitoring can impact performance:
+
+### Asynchronous Processing
+
+Process events asynchronously to avoid blocking:
+
+```typescript
+// Don't block event ingestion
+eventQueue.enqueue(event);
+
+// Process in background
+eventProcessor.processQueue();
+```
+
+### Efficient Storage
+
+Use efficient storage for monitoring data:
+
+-   Time-series databases for metrics
+-   In-memory stores for recent events
+-   Efficient indexing for queries
+
+### Sampling
+
+For very high-volume events, consider sampling:
+
+```typescript
+if (shouldSample(event)) {
+    await processEvent(event);
+}
+```
+
+## Best Practices
+
+### 1. Start Simple
+
+Begin with simple threshold-based monitoring, then add complexity:
+
+-   Failed login attempts
+-   Bulk data access
+-   Administrative actions
+
+### 2. Tune Thresholds
+
+Adjust thresholds based on actual patterns:
+
+-   Too low: Too many false positives
+-   Too high: Miss real threats
+-   Monitor and adjust regularly
+
+### 3. Test Your Monitoring
+
+Regularly test that monitoring works:
+
+-   Simulate attacks
+-   Verify alerts are triggered
+-   Ensure alerts are received
+
+### 4. Document Rules
+
+Document monitoring rules:
+
+-   What each rule detects
+-   Why it's important
+-   How to respond
+-   How to tune thresholds
+
+### 5. Review Regularly
+
+Regularly review alerts and monitoring effectiveness:
+
+-   Are you detecting real threats?
+-   Are there too many false positives?
+-   Are there threats you're missing?
+
+## Common Mistakes
+
+### Monitoring Everything
+
+Don't try to monitor every event—focus on security-significant events.
+
+### Ignoring False Positives
+
+False positives reduce trust in monitoring. Tune rules to minimise them.
+
+### Not Testing
+
+Test your monitoring regularly. Broken monitoring is worse than no monitoring.
+
+### Alert Fatigue
+
+Too many alerts lead to ignored alerts. Tune thresholds and group alerts.
+
+### No Response Plan
+
+Monitoring is useless without a response plan. Define how to respond to each type of alert.
+
+## Conclusion
+
+Real-time monitoring of audit logs transforms them from compliance records into active security tools. By detecting threats as they happen, you can respond faster, reduce impact, and prevent incidents from becoming breaches.
+
+Start with simple threshold-based monitoring for critical events like failed logins and bulk data access. As you gain experience, add pattern detection, anomaly detection, and correlation. Remember to tune thresholds, test regularly, and have response plans for each type of alert.
+
+The goal isn't to monitor everything—it's to monitor the right things effectively. Focus on security-significant events, tune your rules to minimise false positives, and ensure you can respond quickly when alerts fire.
+
+With effective real-time monitoring, audit logs become a powerful security tool that helps you detect and respond to threats before they cause significant damage.

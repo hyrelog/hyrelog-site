@@ -1,0 +1,80 @@
+{
+  "images": [
+    {
+      "filename": "blog-audit-trails-vs-observability.png",
+      "prompt": "Abstract comparison between observability signals and immutable audit logs. Split-screen design: metrics and traces on one side, cryptographic ledger blocks on the other. Dark enterprise theme with blue and teal highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-audit-trails-zero-trust.png",
+      "prompt": "Zero Trust architecture visual with layered security zones, identity verification icons, and an immutable audit log ledger reinforcing access decisions. Dark enterprise style with blue and teal highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-event-taxonomy-audit-design.png",
+      "prompt": "Abstract audit-event taxonomy illustration: structured JSON blocks floating in hierarchy, arrows connecting event types, and a secure ledger in the center. Dark UI aesthetic with blue and green highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-business-value-of-audit-trails.png",
+      "prompt": "Abstract enterprise illustration showing business growth driven by audit trails. Flowing event blocks transforming into charts, insights, and decision panels. Dark premium SaaS aesthetic with blue and teal highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-reducing-operational-costs.png",
+      "prompt": "Abstract enterprise illustration showing cost reduction using audit trails. Event blocks flowing into savings graphs, downward-sloping cost lines, neon teal and blue highlights, clean dark SaaS aesthetic. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-designing-audit-trails-multi-tenant-saas.png",
+      "prompt": "Abstract multi tenant SaaS architecture illustration: multiple isolated tenant blocks or pods feeding event streams into a central secure audit ledger. Clean dark enterprise UI aesthetic with glowing blue and teal connectors. Emphasize tenant isolation through separated containers, each sending structured audit events. Modern SaaS infrastructure style similar to Vercel, Supabase, and Linear. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-event-taxonomy-design.png",
+      "prompt": "Abstract event taxonomy visual: layered hierarchy blocks, branching event categories, and structured nodes flowing into an ordered audit log. Blue and cyan highlights on a dark professional background. Minimalist enterprise style with subtle grid lines and thin connectors. Represents clarity, categorization, and scalable event structure. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-cost-of-poor-audit-logging.png",
+      "prompt": "Enterprise style incident response illustration showing broken audit log chains, red alert indicators, and a fragmented event timeline. Dark blue security background with subtle data grid. Blue and red highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-privacy-preserving-audit-trails.png",
+      "prompt": "A professional dark mode illustration showing a secure audit ledger with masked or pseudonymised data fields. Abstract data blocks with blurred or partially hidden identifiers, surrounded by privacy shields and subtle encryption motifs. Blue and teal highlights, minimalistic enterprise style. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-why-audit-trails-fail.png",
+      "prompt": "An abstract illustration showing a broken or fragmented audit chain with missing links, contrasted beside a corrected immutable ledger structure. Dark enterprise aesthetic, blue and red accents symbolising failure and correction. Clean, professional 16:9 layout.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-audit-trails-insider-threat-detection.png",
+      "prompt": "Abstract security illustration representing insider threat detection. Central audit ledger with behavioral anomaly signals around user icons. Dark enterprise style with blue and red analysis highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-architecting-high-volume-audit-logging.png",
+      "prompt": "Abstract distributed systems illustration showing high volume audit logging pipelines. Event streams flowing through microservice nodes into an immutable ledger. Dark infrastructure aesthetic with blue and teal highlights. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-logs-to-evidence.png",
+      "prompt": "A transformation themed illustration showing raw, unstructured log lines flowing into a structured, secure audit ledger. Abstract shapes representing logs convert into clean, aligned blocks. Dark enterprise background with blue and teal highlights. Professional compliance aesthetic. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-audit-trails-for-analytics.png",
+      "prompt": "An abstract illustration combining an audit ledger with anonymised analytics charts. Tokenised user silhouettes, blurred identifiers, and clean charts flowing from a secure audit chain. Dark modern design with blue and soft green privacy accents. 16:9.",
+      "dimensions": "1200x630"
+    },
+    {
+      "filename": "blog-developer-friendly-audit-trail-api.png",
+      "prompt": "Abstract illustration showing a clean developer focused API panel sending structured JSON audit events into a secure ledger. Dark enterprise SaaS style with crisp lines, glowing blue code elements, and a central audit log block. Modern infrastructure aesthetic. 16:9.",
+      "dimensions": "1200x630"
+    }
+  ]
+}
+

@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model EmailLead {
+  id          String    @id @default(cuid())
+  email       String
+  createdAt   DateTime  @default(now())
+  source      String
+  pagePath    String?
+  name        String?
+  company     String?
+  message     String?
+  tags        String[]
+  consent     Boolean   @default(false)
+  confirmed   Boolean   @default(false)
+  confirmedAt DateTime?
+  tokenHash   String?
+  meta        Json?
+  @@index([email])
+  @@index([source])
+  @@index([createdAt])
+}
+
+model LeadMagnetRequest {
+  id          String    @id @default(cuid())
+  email       String
+  magnet      String
+  createdAt   DateTime  @default(now())
+  redeemedAt DateTime?
+  tokenHash   String?
+  meta        Json?
+  @@index([email])
+  @@index([magnet])
+  @@index([createdAt])
+}

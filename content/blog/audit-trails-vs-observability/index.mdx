@@ -1,0 +1,202 @@
+---
+title: 'Audit Trails vs Observability: Why Both Matter in Modern Systems'
+subtitle: 'Understanding the differences between logs, traces, metrics, and immutable audit records'
+description: 'Audit trails and observability logs are not interchangeable. Learn the critical differences, when to use each, and how audit trails complement your observability stack.'
+date: '2025-01-20'
+updatedAt: '2025-01-25'
+author: 'Mark Rosenberg'
+authorUrl: 'https://hyrelog.com/about'
+categories: ['Audit Trails', 'Monitoring', 'Architecture']
+tags:
+    ['audit trails', 'observability', 'monitoring', 'immutability', 'security']
+slug: 'audit-trails-vs-observability'
+canonicalUrl: 'https://hyrelog.com/blog/audit-trails-vs-observability'
+ogImage: '/og/blog-audit-trails-vs-observability.png'
+ogImageAlt: 'Abstract comparison of observability signals vs immutable audit logs'
+readingTimeMinutes: 12
+draft: false
+---
+
+# Audit Trails vs Observability: Why Both Matter in Modern Systems
+
+**Audit trails and observability logs often get confused, but they solve very different problems.**  
+Both are important. Both record information. But one is designed for _incident response and operational awareness_, while the other is designed for _legal accountability, compliance, and forensic truth_.
+
+In this article, we break down the differences across security, architecture, compliance, and engineering workflow, and explain why modern systems need both.
+
+---
+
+## What Is Observability?
+
+Observability is the ability to understand the internal state of a system using **logs**, **metrics**, and **traces**. It answers questions such as:
+
+-   Why is this service slow?
+-   What caused this spike in errors?
+-   Where did the request fail?
+-   Which part of the system is bottlenecking?
+
+Observability is built for **debugging**, **performance analysis**, and **system health**.
+
+### The Three Pillars
+
+#### 1. Logs
+
+Unstructured or structured text messages output by applications.
+
+#### 2. Metrics
+
+Numeric time-series values that show trends (CPU, latency, throughput, queue depth).
+
+#### 3. Traces
+
+A request’s journey through a distributed system.
+
+Observability tools (Datadog, New Relic, Honeycomb, Grafana) help engineers identify root causes and ensure reliability.
+
+But here’s the key:  
+**Observability data is rarely immutable, trustworthy evidence of user actions.**  
+And it’s not meant to be.
+
+---
+
+## What Are Audit Trails?
+
+Audit trails are **chronological, structured, tamper-evident records** of **business-relevant events**:
+
+-   User logins
+-   Permission changes
+-   Data exports
+-   Admin actions
+-   Financial events
+-   Security-sensitive operations
+
+Audit trails must be:
+
+-   Immutable
+-   Trustworthy
+-   Legally defensible
+-   Verifiable
+-   Accessible for investigations
+
+Unlike observability logs, audit trails are designed to answer:
+
+-   Who accessed the data?
+-   What did they change?
+-   Why was this action performed?
+-   When did this security-sensitive event occur?
+-   Can we **prove** the event record hasn’t been altered?
+
+---
+
+## Observability Helps Engineers.
+
+## Audit Trails Protect the Business.
+
+A powerful way to understand the difference is this:
+
+| Purpose                         | Audit Trails | Observability |
+| ------------------------------- | ------------ | ------------- |
+| Security investigations         | ✔            | △             |
+| Compliance + certifications     | ✔            | ✘             |
+| Debugging + root-cause analysis | △            | ✔             |
+| Performance monitoring          | ✘            | ✔             |
+| Legal evidence                  | ✔            | ✘             |
+| Detecting suspicious access     | ✔            | △             |
+| Infrastructure failures         | ✘            | ✔             |
+
+They overlap, but don’t replace each other.
+
+---
+
+## Why Observability Can’t Replace Audit Trails
+
+Even mature observability stacks fall short for compliance and investigations:
+
+### 1. Logs Are Not Immutable
+
+They may be stored in files, overwritten, deleted, or lost during rotation.
+
+Audit trails **must** be tamper-evident (hash chains, signatures).
+
+### 2. Observability Is Infrastructure-Centric
+
+Logs focus on system behaviour:
+
+`2025-02-01 ERROR Timeout calling service B`
+
+Audit trails focus on **business behaviour**:
+
+`User 124 changed role from viewer → admin at 2025-02-01 09:22 UTC`
+
+### 3. Observability Data Ages Out
+
+Log retention is often days or weeks.  
+Audit trails must survive **years**.
+
+### 4. Observability Data Is Volatile
+
+Infrastructure changes → logs lost.  
+Containers restart → logs gone.  
+Microservices split → logs fragment.
+
+Audit trails must be **durable**, **portable**, and **centralised**.
+
+---
+
+## Why Audit Trails Can’t Replace Observability
+
+Audit trails contain business events, not performance or debugging data.
+
+They don’t track:
+
+-   CPU spikes
+-   Latency patterns
+-   Error rates
+-   Request traces
+-   Memory leaks
+
+Observability keeps systems healthy.  
+Audit trails keep organisations accountable.
+
+---
+
+## Together: A Complete Trust & Reliability Story
+
+A modern system needs:
+
+### Observability
+
+to keep systems running.
+
+### Audit trails
+
+to keep organisations compliant, secure, and trustworthy.
+
+When combined, engineers and security teams gain:
+
+-   Root-cause understanding
+-   Clear accountability
+-   Traceability across business + technical events
+-   Real-time anomaly detection
+-   Forensic-grade evidence
+
+---
+
+## Building a Dual-Layer Strategy
+
+### 1. Use Observability Tools for Infrastructure
+
+Datadog, Grafana, Honeycomb, Sentry.
+
+### 2. Use HyreLog for Audit Trails
+
+HyreLog provides:
+
+-   Hash-chained immutability
+-   Fast ingestion
+-   Workspace + project scoping
+-   Clean querying
+-   Forensic evidence
+-   Exportable timelines
+
+Together, they unlock complete visibility across both **systems** and **actions**.
