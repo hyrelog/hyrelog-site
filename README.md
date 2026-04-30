@@ -27,17 +27,17 @@ If you use npm, run `npm install` (and ignore `packageManager` in `package.json`
 
 Copy `.env.example` to `.env.local` and fill in:
 
-| Variable | Description |
-|----------|-------------|
-| `SITE_URL` | Canonical site URL (e.g. `https://hyrelog.com`) for SEO and links |
-| `RESEND_API_KEY` | [Resend](https://resend.com) API key for sending contact form emails |
-| `CONTACT_TO_EMAIL` | Inbox that receives contact form submissions |
-| `CONTACT_FROM_EMAIL` | Sender address (must be a [verified domain](https://resend.com/docs/dashboard/domains/introduction) in Resend) |
-| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret (server) |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (client) |
-| `RATE_LIMIT_MAX` | Max requests per window (default 5) |
-| `RATE_LIMIT_WINDOW_SEC` | Rate limit window in seconds (default 60) |
-| `DATABASE_URL` | PostgreSQL connection string for Prisma |
+| Variable                         | Description                                                                                                    |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `SITE_URL`                       | Canonical site URL (e.g. `https://hyrelog.com`) for SEO and links                                              |
+| `RESEND_API_KEY`                 | [Resend](https://resend.com) API key for sending contact form emails                                           |
+| `CONTACT_TO_EMAIL`               | Inbox that receives contact form submissions                                                                   |
+| `CONTACT_FROM_EMAIL`             | Sender address (must be a [verified domain](https://resend.com/docs/dashboard/domains/introduction) in Resend) |
+| `TURNSTILE_SECRET_KEY`           | Cloudflare Turnstile secret (server)                                                                           |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (client)                                                                         |
+| `RATE_LIMIT_MAX`                 | Max requests per window (default 5)                                                                            |
+| `RATE_LIMIT_WINDOW_SEC`          | Rate limit window in seconds (default 60)                                                                      |
+| `DATABASE_URL`                   | PostgreSQL connection string for Prisma                                                                        |
 
 - Without Resend keys, form submissions will fail to send email.
 - Without Turnstile keys, forms still work; the server logs a warning and skips token verification.
